@@ -1,0 +1,54 @@
+﻿## .NET Core
+bin/
+obj/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+.vs/
+.vscode/
+.DS_Store
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+
+## NuGet Packages
+*.nupkg
+packages/
+*.nuget.props
+*.nuget.targets
+
+## Visual Studio
+.vs/
+*.swp
+*._ry
+*.pidb
+*.log
+*.tmp
+*.temp
+*.cache
+*.ipdb
+*.pdb
+
+## Rider
+.idea/
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## VS Code
+.vscode/
+!.vscode/launch.json
+!.vscode/tasks.json
+
+## Azure Functions
+local.settings.json

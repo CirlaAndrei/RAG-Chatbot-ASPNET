@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BDFE3519-E8DD-4AA8-9951-B9D7186ED85C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAGChatbot.API", "src\API\RAGChatbot.API.csproj", "{78D3652C-3C4D-4C40-B208-03CA6B63CBA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAGChatbot.Core", "src\Core\RAGChatbot.Core.csproj", "{FDC8E300-5BC9-4047-9042-8546B126B368}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAGChatbot.Infrastructure", "src\Infrastructure\RAGChatbot.Infrastructure.csproj", "{2ACB8AE5-C0B3-4D40-A5D6-1AB745CAA1DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3B72A44D-F845-4AE6-B029-6B392BD4070D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAGChatbot.Tests", "tests\UnitTests\RAGChatbot.Tests.csproj", "{02661692-70F8-4E96-A786-2861293ECC0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78D3652C-3C4D-4C40-B208-03CA6B63CBA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78D3652C-3C4D-4C40-B208-03CA6B63CBA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78D3652C-3C4D-4C40-B208-03CA6B63CBA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78D3652C-3C4D-4C40-B208-03CA6B63CBA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC8E300-5BC9-4047-9042-8546B126B368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC8E300-5BC9-4047-9042-8546B126B368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC8E300-5BC9-4047-9042-8546B126B368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC8E300-5BC9-4047-9042-8546B126B368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ACB8AE5-C0B3-4D40-A5D6-1AB745CAA1DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ACB8AE5-C0B3-4D40-A5D6-1AB745CAA1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ACB8AE5-C0B3-4D40-A5D6-1AB745CAA1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ACB8AE5-C0B3-4D40-A5D6-1AB745CAA1DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02661692-70F8-4E96-A786-2861293ECC0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02661692-70F8-4E96-A786-2861293ECC0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02661692-70F8-4E96-A786-2861293ECC0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02661692-70F8-4E96-A786-2861293ECC0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{78D3652C-3C4D-4C40-B208-03CA6B63CBA5} = {BDFE3519-E8DD-4AA8-9951-B9D7186ED85C}
+		{FDC8E300-5BC9-4047-9042-8546B126B368} = {BDFE3519-E8DD-4AA8-9951-B9D7186ED85C}
+		{2ACB8AE5-C0B3-4D40-A5D6-1AB745CAA1DC} = {BDFE3519-E8DD-4AA8-9951-B9D7186ED85C}
+		{02661692-70F8-4E96-A786-2861293ECC0C} = {3B72A44D-F845-4AE6-B029-6B392BD4070D}
+	EndGlobalSection
+EndGlobal
