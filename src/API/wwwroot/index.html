@@ -49,6 +49,28 @@
             opacity: 0.9;
         }
 
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .header-button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+
+        .header-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
         .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -215,6 +237,11 @@
         <div class="chat-header">
             <h1>🤖 RAG Chatbot</h1>
             <p>Ask questions about your documents</p>
+            <div class="header-buttons">
+                <button class="header-button" id="sampleDataBtn">📚 Add Sample Data</button>
+                <button class="header-button" id="uploadBtn">📄 Upload Document</button>
+            </div>
+            <input type="file" id="fileInput" accept=".txt,.pdf" style="display: none;">
         </div>
         
         <div class="chat-messages" id="chatMessages">
@@ -253,16 +280,9 @@
             
             if (!question) return;
 
-            // Clear input
             input.value = '';
-
-            // Add user message to chat
             addMessage('user', question);
-
-            // Show typing indicator
             showTypingIndicator();
-
-            // Disable input and button
             setLoadingState(true);
 
             try {
@@ -275,11 +295,12 @@
                         question: question,
                         sessionId: sessionId,
                         maxSources: 3,
-                        minScore: 0.5
+                        minScore: 0.1
+ 
+
                     })
                 });
 
-                // Remove typing indicator
                 removeTypingIndicator();
 
                 if (!response.ok) {
@@ -398,8 +419,8 @@
             return div.innerHTML;
         }
 
-        // Add sample data button
-        async function addSampleData() {
+        // Sample data button
+        document.getElementById('sampleDataBtn').addEventListener('click', async function() {
             try {
                 const response = await fetch(`${API_URL}/api/Test/add-sample-data`, {
                     method: 'POST'
@@ -413,25 +434,46 @@
             } catch (error) {
                 addErrorMessage('Failed to connect to the server.');
             }
-        }
+        });
 
-        // Add sample data button to header
-        document.addEventListener('DOMContentLoaded', function() {
-            const header = document.querySelector('.chat-header');
-            const button = document.createElement('button');
-            button.textContent = '📚 Add Sample Data';
-            button.style.cssText = `
-                background: rgba(255,255,255,0.2);
-                border: none;
-                color: white;
-                padding: 5px 10px;
-                border-radius: 5px;
-                cursor: pointer;
-                margin-top: 10px;
-                font-size: 0.8rem;
-            `;
-            button.onclick = addSampleData;
-            header.appendChild(button);
+        // Upload button
+        document.getElementById('uploadBtn').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            addBotMessage(`📤 Uploading ${file.name}...`, []);
+            
+            try {
+                const response = await fetch(`${API_URL}/api/Document/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    addBotMessage(
+                        `✅ Successfully uploaded "${file.name}"!\n` +
+                        `Processed ${result.chunksProcessed} chunks. ` +
+                        `You can now ask questions about this document.`,
+                        []
+                    );
+                } else {
+                    const error = await response.json();
+                    addErrorMessage(`Upload failed: ${error.error || 'Unknown error'}`);
+                }
+            } catch (error) {
+                addErrorMessage('Failed to upload file. Make sure the server is running.');
+                console.error('Upload error:', error);
+            }
+            
+            e.target.value = '';
         });
     </script>
 </body>

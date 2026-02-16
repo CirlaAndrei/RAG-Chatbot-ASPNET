@@ -1,12 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RAGChatbot.Core.Interfaces;
 using RAGChatbot.Core.Services;
 using RAGChatbot.Infrastructure.Configuration;
+using RAGChatbot.Infrastructure.Data;
+using RAGChatbot.Infrastructure.DocumentProcessors;
 using RAGChatbot.Infrastructure.LLM;
 using RAGChatbot.Infrastructure.Services;
 using RAGChatbot.Infrastructure.VectorDb;
+using System.IO;
 
 namespace RAGChatbot.Infrastructure;
 
@@ -19,6 +23,13 @@ public static class ServiceCollectionExtensions
         services.Configure<LlmSettings>(configuration.GetSection("LlmSettings"));
         services.Configure<RagSettings>(configuration.GetSection("RagSettings"));
 
+        // Register Database
+        services.AddDbContext<AppDbContext>(options =>
+        {
+            var dbPath = Path.Combine(Directory.GetCurrentDirectory(), "ragchatbot.db");
+            options.UseSqlite($"Data Source={dbPath}");
+        });
+                
         // Register LLM Provider
         services.AddHttpClient();
         
@@ -35,8 +46,13 @@ public static class ServiceCollectionExtensions
                 break;
         }
 
-        // Register Vector Database (always InMemory for now)
-        services.AddSingleton<IVectorDatabase, InMemoryVectorDatabase>();
+        // Register Vector Database (using SQLite now)
+        services.AddScoped<IVectorDatabase, SqliteVectorDatabase>();
+
+        // Register Document Processors
+        services.AddScoped<IDocumentProcessor, TextDocumentProcessor>();
+        services.AddScoped<IDocumentProcessor, PdfDocumentProcessor>();
+        services.AddScoped<IDocumentProcessorFactory, DocumentProcessorFactory>();
 
         // Register RAG Service
         services.AddScoped<IRagService, RagService>();

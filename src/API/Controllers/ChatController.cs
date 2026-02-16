@@ -71,9 +71,9 @@ public class ChatController : ControllerBase
             await Response.WriteAsync("Question cannot be empty");
             return;
         }
-Response.Headers["Content-Type"] = "text/event-stream";
-Response.Headers["Cache-Control"] = "no-cache";
-Response.Headers["Connection"] = "keep-alive";
+        Response.Headers["Content-Type"] = "text/event-stream";
+        Response.Headers["Cache-Control"] = "no-cache";
+        Response.Headers["Connection"] = "keep-alive";
         // Generate a session ID if not provided
         if (string.IsNullOrEmpty(query.SessionId))
         {
