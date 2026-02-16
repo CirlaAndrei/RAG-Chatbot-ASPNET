@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  rag-chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - rag-data:/app/data
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - LlmSettings__Provider=ollama
+    depends_on:
+      - ollama
+    networks:
+      - rag-network
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    networks:
+      - rag-network
+    command: serve
+
+volumes:
+  rag-data:
+  ollama-models:
+
+networks:
+  rag-network:
+    driver: bridge
